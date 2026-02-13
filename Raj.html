@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero {
+            background: #ddd;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .contact form,
+        .login form {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #111;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        .logout-btn {
+            background: crimson;
+        }
+
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Creative Studio</h1>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <a href="#login">Login</a>
+    </nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="hero">
+    <h2>Welcome to My Studio</h2>
+    <p>We capture moments, creativity, and memories.</p>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+    <h2>Photo Gallery</h2>
+    <div class="gallery">
+        <img src="images/download (1).jpg">
+        <img src="images/download.jpg">
+        <img src="https://via.placeholder.com/400x300">
+        <img src="https://via.placeholder.com/400x300">
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="4" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<!-- LOGIN -->
+<section id="login" class="login">
+    <h2>Login</h2>
+
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <div id="welcome" class="hidden">
+        <h3>Welcome, <span id="user"></span> 👋</h3>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 My Studio</p>
+</footer>
+
+<script>
+    const loginForm = document.getElementById("loginForm");
+    const welcomeBox = document.getElementById("welcome");
+    const userSpan = document.getElementById("user");
+
+    // Check login status
+    if (localStorage.getItem("loggedInUser")) {
+        showWelcome(localStorage.getItem("loggedInUser"));
+    }
+
+    loginForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        // Simple demo login (change as needed)
+        if (username === "admin" && password === "1234") {
+            localStorage.setItem("loggedInUser", username);
+            showWelcome(username);
+        } else {
+            alert("Invalid login credentials");
+        }
+    });
+
+    function showWelcome(username) {
+        loginForm.classList.add("hidden");
+        welcomeBox.classList.remove("hidden");
+        userSpan.textContent = username;
+    }
+
+    function logout() {
+        localStorage.removeItem("loggedInUser");
+        loginForm.classList.remove("hidden");
+        welcomeBox.classList.add("hidden");
+    }
+</script>
+
+</body>
+</html>
